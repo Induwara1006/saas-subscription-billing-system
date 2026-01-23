@@ -1,0 +1,54 @@
+services:
+  auth-db:
+    image: postgres:16
+    container_name: auth-db
+    environment:
+      POSTGRES_USER: saas
+      POSTGRES_PASSWORD: saas123
+      POSTGRES_DB: auth_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - auth_db_data:/var/lib/postgresql/data
+
+  subscription-db:
+    image: postgres:16
+    container_name: subscription-db
+    environment:
+      POSTGRES_USER: saas
+      POSTGRES_PASSWORD: saas123
+      POSTGRES_DB: subscription_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - subscription_db_data:/var/lib/postgresql/data
+
+  usage-db:
+    image: postgres:16
+    container_name: usage-db
+    environment:
+      POSTGRES_USER: saas
+      POSTGRES_PASSWORD: saas123
+      POSTGRES_DB: usage_db
+    ports:
+      - "5435:5432"
+    volumes:
+      - usage_db_data:/var/lib/postgresql/data
+
+  billing-db:
+    image: postgres:16
+    container_name: billing-db
+    environment:
+      POSTGRES_USER: saas
+      POSTGRES_PASSWORD: saas123
+      POSTGRES_DB: billing_db
+    ports:
+      - "5436:5432"
+    volumes:
+      - billing_db_data:/var/lib/postgresql/data
+
+volumes:
+  auth_db_data:
+  subscription_db_data:
+  usage_db_data:
+  billing_db_data:
