@@ -1,6 +1,5 @@
 package com.saas.authservice.service;
 
-import com.saas.authservice.dto.AuthResponse;
 import com.saas.authservice.dto.LoginRequest;
 import com.saas.authservice.dto.RegisterRequest;
 import com.saas.authservice.entity.User;
@@ -17,8 +16,9 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     public String register(RegisterRequest request) {
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email already registered!");
+
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            return "Email already exists!";
         }
 
         User user = User.builder()
@@ -29,17 +29,20 @@ public class AuthService {
 
         userRepository.save(user);
 
-        return "User registered successfully ✅";
+        return "User registered successfully!";
     }
 
     public String login(LoginRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Invalid email or password"));
 
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid email or password");
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        boolean matches = passwordEncoder.matches(request.getPassword(), user.getPassword());
+
+        if (!matches) {
+            throw new RuntimeException("Invalid password");
         }
 
-        return "Login successful ✅ (JWT next step)";
+        return "Login success ✅ (JWT coming next)";
     }
 }
