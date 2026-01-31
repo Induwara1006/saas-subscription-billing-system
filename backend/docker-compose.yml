@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: saas123
       POSTGRES_DB: auth_db
     ports:
-      - "5433:5432"
+      - "6543:5432"
     volumes:
       - auth_db_data:/var/lib/postgresql/data
 
@@ -19,7 +19,7 @@ services:
       POSTGRES_PASSWORD: saas123
       POSTGRES_DB: subscription_db
     ports:
-      - "5434:5432"
+      - "6544:5432"
     volumes:
       - subscription_db_data:/var/lib/postgresql/data
 
@@ -31,7 +31,7 @@ services:
       POSTGRES_PASSWORD: saas123
       POSTGRES_DB: usage_db
     ports:
-      - "5435:5432"
+      - "6545:5432"
     volumes:
       - usage_db_data:/var/lib/postgresql/data
 
@@ -43,7 +43,7 @@ services:
       POSTGRES_PASSWORD: saas123
       POSTGRES_DB: billing_db
     ports:
-      - "5436:5432"
+      - "6546:5432"
     volumes:
       - billing_db_data:/var/lib/postgresql/data
 
